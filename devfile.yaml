@@ -37,6 +37,13 @@ commands:
       group:
         kind: build
         isDefault: true
+  - id: mvn-package-poststart
+    exec:
+      component: tools
+      workingDir: /projects/xmas-rhcl-shop
+      commandLine: "bash -lc \"mvn -DskipTests package || echo 'Skipping postStart build (non-fatal)'\""
+      group:
+        kind: build
   - id: mvn-dev
     exec:
       component: tools
@@ -54,4 +61,4 @@ commands:
         kind: test
 events:
   postStart:
-    - mvn-package
+    - mvn-package-poststart

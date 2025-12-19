@@ -5,25 +5,13 @@ metadata:
   displayName: Arencloud Xmas RHCL Shop
   description: Quarkus + Camel + Keycloak app with Kaoto + Kuadrant samples
 components:
-  - name: che-code
-    cheEditor:
-      id: redhat-developer/che-code/latest
-      registryUrl: https://eclipse-che.github.io/che-plugin-registry/main
-      preferences:
-        java.jdt.ls.java.home: /usr/lib/jvm/java-17-openjdk
-      extensions:
-        - redhat.java
-        - vscjava.vscode-java-debug
-        - vscjava.vscode-java-test
-        - vscjava.vscode-maven
-        - redhat.vscode-xml
-        - redhat.vscode-yaml
-        - redhat.vscode-apache-camel
   - name: tools
     container:
-      image: quay.io/devspaces/udi-rhel8:latest
-      memoryLimit: 2Gi
-      cpuLimit: 1000m
+      image: quay.io/devfile/universal-developer-image:latest
+      memoryRequest: 2Gi
+      memoryLimit: 4Gi
+      cpuRequest: 500m
+      cpuLimit: 2000m
       mountSources: true
       sourceMapping: /projects
       env:

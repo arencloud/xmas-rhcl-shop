@@ -1,0 +1,63 @@
+---
+apiVersion: kuadrant.io/v1beta1
+kind: ConnectivityLink
+metadata:
+  name: xmas-rhcl-shop
+  namespace: xmas
+spec:
+  hostnames:
+    - shop.arencloud.com
+  targetRef:
+    group: gateway.networking.k8s.io
+    kind: HTTPRoute
+    name: xmas-shop
+  authPolicyRef:
+    name: xmas-shop-auth
+  rateLimitPolicyRef:
+    name: xmas-shop-rl
+---
+apiVersion: kuadrant.io/v1beta1
+kind: AuthPolicy
+metadata:
+  name: xmas-shop-auth
+  namespace: xmas
+spec:
+  targetRef:
+    group: gateway.networking.k8s.io
+    kind: HTTPRoute
+    name: xmas-shop
+  rules:
+    - host: shop.arencloud.com
+      paths: ["/api/.*"]
+      jwt:
+        providers:
+          - issuer: https://sso.arencloud.com/realms/xmas
+            jwksUri: https://sso.arencloud.com/realms/xmas/protocol/openid-connect/certs
+            audiences:
+              - xmas-shop
+        principalBinding: principal
+---
+apiVersion: kuadrant.io/v1beta1
+kind: RateLimitPolicy
+metadata:
+  name: xmas-shop-rl
+  namespace: xmas
+spec:
+  targetRef:
+    group: gateway.networking.k8s.io
+    kind: HTTPRoute
+    name: xmas-shop
+  limits:
+    default:
+      rates:
+        - limit: 60
+          window: 1m
+          dimensions:
+            - remoteAddress
+            - auth.identity.sub
+    burst:
+      rates:
+        - limit: 10
+          window: 10s
+          dimensions:
+            - remoteAddress

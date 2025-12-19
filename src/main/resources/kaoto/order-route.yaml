@@ -1,0 +1,19 @@
+apiVersion: camel.apache.org/v1
+kind: Integration
+metadata:
+  name: xmas-rhcl-order-route
+  annotations:
+    kaoto.io/title: "Order events stream"
+    kaoto.io/description: "Log and fanout order events coming from Quarkus REST via direct:order-events."
+spec:
+  flows:
+    - from:
+        uri: "direct:order-events"
+        steps:
+          - setBody:
+              expression:
+                jsonpath: "$"
+          - log:
+              message: "🎄 Kaoto route saw order ${body[id]} for ${body[giftName]}"
+          - to:
+              uri: "log:kaoto.xmas?level=INFO&showHeaders=false"

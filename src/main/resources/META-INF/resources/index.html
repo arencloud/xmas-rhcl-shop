@@ -1,0 +1,470 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arencloud Xmas Shop</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --evergreen: #0d4d3f;
+            --holly: #c51632;
+            --gold: #ffd166;
+            --mint: #c3f3df;
+            --snow: #f9fbff;
+            --plum: #320a28;
+        }
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+            background: radial-gradient(circle at 20% 20%, rgba(255,209,102,0.25), transparent 26%),
+                        radial-gradient(circle at 80% 10%, rgba(197,22,50,0.22), transparent 30%),
+                        linear-gradient(135deg, #10231e, #0d4d3f 35%, #08231c 90%);
+            min-height: 100vh;
+            color: #fefefe;
+        }
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 22px 28px;
+            position: sticky;
+            top: 0;
+            backdrop-filter: blur(10px);
+            background: rgba(8, 35, 28, 0.7);
+            z-index: 10;
+        }
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: 'Baloo 2', cursive;
+        }
+        .brand .logo {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ffd166, #f14c57);
+            display: grid;
+            place-items: center;
+            color: #0b201a;
+            font-weight: 800;
+            box-shadow: 0 10px 28px rgba(0,0,0,0.3);
+        }
+        button {
+            border: none;
+            border-radius: 12px;
+            padding: 12px 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform .1s ease, box-shadow .2s ease, opacity .2s ease;
+        }
+        button:hover { transform: translateY(-2px); }
+        .btn-primary {
+            background: linear-gradient(135deg, #ffd166, #f14c57);
+            color: #10231e;
+            box-shadow: 0 8px 22px rgba(241,76,87,0.25);
+        }
+        .btn-ghost {
+            background: rgba(255,255,255,0.08);
+            color: #fefefe;
+            border: 1px solid rgba(255,255,255,0.12);
+        }
+        main {
+            padding: 16px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .hero {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 18px;
+            align-items: center;
+            padding: 24px;
+            background: linear-gradient(135deg, rgba(255,209,102,0.16), rgba(255,255,255,0.08));
+            border-radius: 24px;
+            border: 1px solid rgba(255,255,255,0.08);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.25);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero:before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 70% 20%, rgba(197,22,50,0.35), transparent 40%);
+            z-index: 0;
+        }
+        .hero .content { position: relative; z-index: 1; }
+        .hero h1 {
+            margin: 0 0 12px;
+            font-size: 2.4rem;
+            letter-spacing: 1px;
+        }
+        .hero p { margin: 0 0 16px; color: #e6f5ee; line-height: 1.4; }
+        .hero .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            background: rgba(0,0,0,0.25);
+            border-radius: 999px;
+            font-size: 0.9rem;
+            color: #ffd166;
+            border: 1px solid rgba(255,255,255,0.12);
+        }
+        .panel {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 20px;
+            padding: 18px;
+            box-shadow: 0 18px 50px rgba(0,0,0,0.28);
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px;
+        }
+        .gift {
+            position: relative;
+            overflow: hidden;
+            min-height: 320px;
+        }
+        .gift img {
+            width: 88px;
+            height: 88px;
+            object-fit: contain;
+            display: block;
+        }
+        .gift .tag {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(0,0,0,0.25);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 6px 10px;
+            border-radius: 999px;
+            color: #ffd166;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+        .gift h3 {
+            margin: 12px 0 8px;
+            font-size: 1.2rem;
+        }
+        .gift p {
+            margin: 0 0 12px;
+            color: #d7efe3;
+            line-height: 1.35;
+        }
+        .gift .controls {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        input, textarea {
+            width: 100%;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.15);
+            background: rgba(0,0,0,0.2);
+            color: #fff;
+            padding: 10px 12px;
+            font-family: inherit;
+        }
+        textarea { min-height: 60px; resize: vertical; }
+        .two-column {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 16px;
+        }
+        @media (max-width: 900px) {
+            .two-column { grid-template-columns: 1fr; }
+        }
+        .feed {
+            max-height: 600px;
+            overflow-y: auto;
+        }
+        .event {
+            padding: 12px;
+            border-radius: 14px;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(0,0,0,0.15);
+            margin-bottom: 10px;
+        }
+        .event small { color: #b7d3c8; }
+        .snow {
+            pointer-events: none;
+            position: fixed;
+            inset: 0;
+            background-image:
+              radial-gradient(2px 2px at 20% 30%, rgba(255,255,255,0.8), transparent),
+              radial-gradient(2px 2px at 80% 10%, rgba(255,255,255,0.7), transparent),
+              radial-gradient(3px 3px at 50% 70%, rgba(255,255,255,0.6), transparent),
+              radial-gradient(2px 2px at 10% 80%, rgba(255,255,255,0.5), transparent);
+            opacity: 0.7;
+            animation: snowfall 18s linear infinite;
+            z-index: 0;
+        }
+        @keyframes snowfall {
+            from { background-position: 0 0, 0 0, 0 0, 0 0; }
+            to { background-position: 0 800px, 0 600px, 0 1000px, 0 900px; }
+        }
+        .status-chip {
+            padding: 8px 12px;
+            background: rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 10px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="snow"></div>
+    <header>
+        <div class="brand">
+            <div class="logo">🎁</div>
+            <div>
+                <div style="font-weight:700; letter-spacing:0.5px;">Arencloud Xmas Shop</div>
+                <small style="color:#c3f3df;">Quarkus • Camel • Keycloak</small>
+            </div>
+        </div>
+        <div style="display:flex; gap:10px; align-items:center;">
+            <span id="user-badge" class="status-chip">Not logged in</span>
+            <button id="login-btn" class="btn-primary">Log in</button>
+            <button id="logout-btn" class="btn-ghost" style="display:none;">Log out</button>
+        </div>
+    </header>
+    <main>
+        <section class="hero">
+            <div class="content">
+                <span class="badge">Built for podman • Kuadrant-ready • Kaoto-friendly</span>
+                <h1>Deliver joyful gifts across arencloud.com</h1>
+                <p>Secure Quarkus portal with Keycloak login, Camel routes you can open in Kaoto, and Kuadrant Connectivity Link guardrails. Merry golden gradients included.</p>
+                <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                    <button class="btn-primary" onclick="login()">Start gifting</button>
+                    <button class="btn-ghost" onclick="loadGifts()">Reload catalog</button>
+                </div>
+            </div>
+            <div class="content panel">
+                <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
+                    <div style="width:46px; height:46px; border-radius:14px; background:linear-gradient(135deg,#f14c57,#ffd166); display:grid; place-items:center; color:#0b201a; font-weight:800;">KC</div>
+                    <div>
+                        <div style="font-weight:700;">Keycloak secured</div>
+                        <small id="token-hint" style="color:#c3f3df;">Login to fetch your token</small>
+                    </div>
+                </div>
+                <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                    <div class="status-chip">OIDC audience: <code>xmas-shop</code></div>
+                    <div class="status-chip">Realm: <code>xmas</code></div>
+                    <div class="status-chip">Kaoto route: <code>order-events-route</code></div>
+                </div>
+            </div>
+        </section>
+
+        <section style="margin-top:20px;" class="two-column">
+            <div class="panel">
+                <h2 style="margin-top:0;">Gifts</h2>
+                <div id="gift-grid" class="grid"></div>
+            </div>
+            <div class="panel">
+                <h2 style="margin-top:0;">Live order stream</h2>
+                <div id="event-feed" class="feed"></div>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/keycloak-js@23.0.7/dist/keycloak.min.js"></script>
+    <script>
+        let keycloak;
+        let authenticated = false;
+        let kcConfig = {
+            url: 'https://sso.arencloud.com',
+            realm: 'xmas',
+            clientId: 'xmas-shop'
+        };
+
+        async function loadConfig() {
+            try {
+                const res = await fetch('/api/config');
+                if (!res.ok) return;
+                const cfg = await res.json();
+                kcConfig = computeKeycloakConfig(cfg);
+            } catch (e) {
+                console.warn('Falling back to default Keycloak config', e);
+            }
+        }
+
+        function computeKeycloakConfig(cfg) {
+            const fallback = { ...kcConfig };
+            if (!cfg || !cfg.authServerUrl) return fallback;
+            try {
+                const authUrl = cfg.authServerUrl;
+                const u = new URL(authUrl);
+                const parts = u.pathname.split('/').filter(Boolean);
+                const realmIndex = parts.indexOf('realms');
+                const realm = cfg.realm || (realmIndex >= 0 ? parts[realmIndex + 1] : 'xmas');
+                const basePath = realmIndex > 0 ? '/' + parts.slice(0, realmIndex).join('/') : '';
+                const baseUrl = `${u.protocol}//${u.host}${basePath}`;
+                return {
+                    url: baseUrl,
+                    realm,
+                    clientId: cfg.clientId || fallback.clientId
+                };
+            } catch (e) {
+                console.warn('Could not parse authServerUrl, using fallback', e);
+                return fallback;
+            }
+        }
+
+        async function init() {
+            try {
+                await loadConfig();
+                keycloak = new Keycloak(kcConfig);
+                authenticated = await keycloak.init({
+                    onLoad: 'check-sso',
+                    pkceMethod: 'S256',
+                    checkLoginIframe: false,
+                    silentCheckSsoRedirectUri: window.location.origin + '/silent-check-sso.html',
+                    enableLogging: true
+                });
+                updateAuthUi();
+                loadGifts();
+                if (authenticated) {
+                    loadEvents();
+                    tokenMaintenance();
+                }
+                // If Keycloak reports not authenticated but a session may exist, offer a login prompt.
+                if (!authenticated) {
+                    console.warn('Keycloak init did not detect a session; showing login button');
+                }
+            } catch (e) {
+                console.error('Keycloak init failed', e);
+            }
+        }
+
+        function tokenMaintenance() {
+            setInterval(() => {
+                keycloak.updateToken(30).catch(() => keycloak.login());
+            }, 20000);
+        }
+
+        function updateAuthUi() {
+            const userBadge = document.getElementById('user-badge');
+            const loginBtn = document.getElementById('login-btn');
+            const logoutBtn = document.getElementById('logout-btn');
+            const realmBadge = kcConfig?.realm || 'xmas';
+            const clientBadge = kcConfig?.clientId || 'xmas-shop';
+            if (authenticated) {
+                userBadge.textContent = keycloak.idTokenParsed?.preferred_username || 'holiday-guest';
+                loginBtn.style.display = 'none';
+                logoutBtn.style.display = 'inline-flex';
+                document.getElementById('token-hint').textContent = `Token ready · ${realmBadge}/${clientBadge}`;
+            } else {
+                userBadge.textContent = 'Not logged in';
+                loginBtn.style.display = 'inline-flex';
+                logoutBtn.style.display = 'none';
+                document.getElementById('token-hint').textContent = `Login to fetch token for ${realmBadge}/${clientBadge}`;
+            }
+        }
+
+        function login() { keycloak.login({ redirectUri: window.location.href }); }
+        function logout() { keycloak.logout({ redirectUri: window.location.origin }); }
+
+        async function loadGifts() {
+            const grid = document.getElementById('gift-grid');
+            grid.innerHTML = '<p>Loading gifts...</p>';
+            try {
+                const res = await fetch('/api/gifts');
+                const gifts = await res.json();
+                grid.innerHTML = '';
+                gifts.forEach(g => grid.appendChild(renderGift(g)));
+            } catch (e) {
+                grid.innerHTML = '<p>Failed to load gifts.</p>';
+                console.error(e);
+            }
+        }
+
+        function renderGift(gift) {
+            const card = document.createElement('div');
+            card.className = 'panel gift';
+            card.innerHTML = `
+                <div class="tag">$${Number(gift.price).toFixed(2)}</div>
+                <img src="${gift.imageUrl}" alt="${gift.name}">
+                <h3>${gift.name}</h3>
+                <p>${gift.description}</p>
+                <label>Qty</label>
+                <input type="number" min="1" max="10" value="1" id="qty-${gift.id}">
+                <label>Note</label>
+                <textarea id="note-${gift.id}" placeholder="Add a festive note"></textarea>
+                <div class="controls">
+                    <button class="btn-primary" onclick="submitOrder('${gift.id}')">Send it</button>
+                    <button class="btn-ghost" onclick="login()">Login first</button>
+                </div>
+            `;
+            return card;
+        }
+
+        async function submitOrder(giftId) {
+            if (!authenticated) {
+                login();
+                return;
+            }
+            const qty = Number(document.getElementById(`qty-${giftId}`).value || 1);
+            const note = document.getElementById(`note-${giftId}`).value;
+            try {
+                const res = await fetch('/api/orders', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + keycloak.token
+                    },
+                    body: JSON.stringify({ giftId, quantity: qty, note })
+                });
+                if (!res.ok) throw new Error('Order failed');
+                const event = await res.json();
+                prependEvent(event);
+            } catch (e) {
+                alert('Could not place order: ' + e.message);
+                console.error(e);
+            }
+        }
+
+        async function loadEvents() {
+            if (!authenticated) return;
+            try {
+                const res = await fetch('/api/orders', {
+                    headers: { 'Authorization': 'Bearer ' + keycloak.token }
+                });
+                if (!res.ok) throw new Error('Failed to fetch events');
+                const events = await res.json();
+                const feed = document.getElementById('event-feed');
+                feed.innerHTML = '';
+                events.forEach(prependEvent);
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        function prependEvent(event) {
+            const feed = document.getElementById('event-feed');
+            const el = document.createElement('div');
+            el.className = 'event';
+            const created = new Date(event.createdAt || Date.now()).toLocaleString();
+            el.innerHTML = `<strong>${event.giftName}</strong> x${event.quantity}<br>
+                <small>${event.buyer || 'anon'} · ${created}</small><br>
+                <div style="color:#ffd166">${event.note || 'No note'}</div>`;
+            feed.prepend(el);
+        }
+
+        document.getElementById('login-btn').onclick = login;
+        document.getElementById('logout-btn').onclick = logout;
+        init();
+    </script>
+</body>
+</html>

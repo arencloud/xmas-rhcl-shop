@@ -1,0 +1,10 @@
+<!doctype html>
+<html>
+<head><meta charset="UTF-8"><title>Silent Check SSO</title></head>
+<body>
+<script>
+  // Required by Keycloak JS when using onLoad: 'check-sso'
+  parent.postMessage(location.href, location.origin);
+</script>
+</body>
+</html>

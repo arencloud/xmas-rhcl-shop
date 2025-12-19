@@ -4,6 +4,11 @@ metadata:
   version: 1.0.0
   displayName: Arencloud Xmas RHCL Shop
   description: Quarkus + Camel + Keycloak app with Kaoto + Kuadrant samples
+projects:
+  - name: xmas-rhcl-shop
+    zip:
+      location: https://github.com/arencloud/xmas-rhcl-shop/archive/refs/heads/main.zip
+    clonePath: xmas-rhcl-shop
 components:
   - name: tools
     container:

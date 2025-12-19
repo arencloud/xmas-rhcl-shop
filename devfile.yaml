@@ -6,8 +6,9 @@ metadata:
   description: Quarkus + Camel + Keycloak app with Kaoto + Kuadrant samples
 projects:
   - name: xmas-rhcl-shop
-    zip:
-      location: https://github.com/arencloud/xmas-rhcl-shop/archive/refs/heads/main.zip
+    git:
+      remotes:
+        origin: https://github.com/arencloud/xmas-rhcl-shop.git
     clonePath: xmas-rhcl-shop
 components:
   - name: tools

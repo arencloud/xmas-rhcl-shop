@@ -1,6 +1,6 @@
 # Arencloud Xmas RHCL Shop
 
-Quarkus 3 Christmas shop secured by Keycloak, with Red Hat Build of Camel (Kaoto-friendly routes) and Kuadrant Connectivity Link (AuthPolicy + RateLimit). Festive SPA lives at `/` with Christmas palette and token-aware UX.
+Quarkus 3 Christmas shop secured by Keycloak, with Red Hat Build of Camel (Kaoto-friendly routes) and Kuadrant Connectivity Link (AuthPolicy + RateLimit). Festive SPA lives at `/` with Christmas palette and token-aware UX. Crafted as a vivid demo for Red Hat Connectivity Link (RHCL) to showcase OIDC, rate-limits, and Camel flows in one playful package.
 
 ## Features
 - Keycloak OIDC login (Authorization Code + PKCE) for `/api/orders`

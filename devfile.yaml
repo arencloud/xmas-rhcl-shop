@@ -65,6 +65,3 @@ commands:
       commandLine: "mvn test"
       group:
         kind: test
-events:
-  postStart:
-    - mvn-package-poststart

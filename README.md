@@ -55,7 +55,6 @@ podman run --rm -p 8080:8080 \
 - Default run: `mvn quarkus:dev -Dquarkus.console.enabled=false`
 - Default build: `mvn -DskipTests package`
 - Provide OIDC env vars in the workspace (`KEYCLOAK_URL`, `KEYCLOAK_CLIENT_ID`, `KEYCLOAK_CLIENT_SECRET`).
-- For Gitea PAT, create a namespace secret annotated `che.eclipse.org/git-credentials=true` (do not commit credentials).
 
 ## Camel + Kaoto
 - Main Java route: `src/main/java/com/arencloud/xmas/camel/OrderRoutes.java`

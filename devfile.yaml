@@ -1,15 +1,9 @@
-schemaVersion: 2.2.0
+schemaVersion: 2.2.2
 metadata:
   name: xmas-rhcl-shop
   version: 1.0.0
   displayName: Arencloud Xmas RHCL Shop
   description: Quarkus + Camel + Keycloak app with Kaoto + Kuadrant samples
-projects:
-  - name: xmas-rhcl-shop
-    git:
-      remotes:
-        origin: https://github.com/arencloud/xmas-rhcl-shop.git
-    clonePath: xmas-rhcl-shop
 components:
   - name: tools
     container:

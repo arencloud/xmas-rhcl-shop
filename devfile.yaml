@@ -4,12 +4,6 @@ metadata:
   version: 1.0.0
   displayName: Arencloud Xmas RHCL Shop
   description: Quarkus + Camel + Keycloak app with Kaoto + Kuadrant samples
-projects:
-  - name: xmas-rhcl-shop
-    git:
-      remotes:
-        origin: https://github.com/arencloud/xmas-rhcl-shop.git
-    clonePath: xmas-rhcl-shop
 components:
   - name: tools
     container:
@@ -18,50 +12,28 @@ components:
       memoryLimit: 4Gi
       cpuRequest: 500m
       cpuLimit: 2000m
-      mountSources: true
-      sourceMapping: /projects
-      env:
-        - name: MAVEN_OPTS
-          value: "-Dmaven.repo.local=/home/user/.m2/repository"
-      volumeMounts:
-        - name: m2
-          path: /home/user/.m2
-      endpoints:
-        - name: quarkus-dev
-          targetPort: 8080
-          exposure: public
-          protocol: http
-  - name: m2
-    volume:
-      size: 2Gi
 commands:
-  - id: mvn-package
+  - id: init-setup
     exec:
-      component: tools
-      workingDir: /projects/xmas-rhcl-shop
-      commandLine: "mvn -DskipTests package"
-      group:
-        kind: build
-        isDefault: true
-  - id: mvn-package-poststart
+      label: '01: initial setup'
+      component: "tools"
+      workingDir: "${PROJECT_SOURCE}"
+      commandLine: |
+        git config --global core.filemode false
+        echo "source /usr/share/bash-completion/completions/git" >> /home/user/.bashrc
+        oc completion bash > /home/user/.oc_bash_completion
+        echo "source /home/user/.oc_bash_completion" >> /home/user/.bashrc
+  - id: oc-login
     exec:
-      component: tools
-      workingDir: /projects/xmas-rhcl-shop
-      commandLine: "bash -lc \"mvn -DskipTests package || echo 'Skipping postStart build (non-fatal)'\""
-      group:
-        kind: build
-  - id: mvn-dev
-    exec:
-      component: tools
-      workingDir: /projects/xmas-rhcl-shop
-      commandLine: "mvn quarkus:dev -Dquarkus.console.enabled=false"
-      group:
-        kind: run
-        isDefault: true
-  - id: mvn-test
-    exec:
-      component: tools
-      workingDir: /projects/xmas-rhcl-shop
-      commandLine: "mvn test"
-      group:
-        kind: test
+      label: '02: OC Login'
+      component: "tools"
+      commandLine: |
+        clear
+        echo
+        echo "current user: $(oc whoami)"
+        echo "current project: $(oc project)"
+        echo
+        oc login "https://$KUBERNETES_SERVICE_HOST:443" --insecure-skip-tls-verify=true
+events:
+  postStart:
+    - init-setup
